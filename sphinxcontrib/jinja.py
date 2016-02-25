@@ -16,8 +16,10 @@ class JinjaDirective(Directive):
         cxt = self.app.config.jinja_contexts[self.arguments[0]]
 
         tpl = Template("\n".join(self.content))
-        self.content[:] = StringList(tpl.render(**cxt).split("\n"))
-        self.state.nested_parse(self.content, self.content_offset,
+        new_content = tpl.render(**cxt)
+        # transform the text content into a string_list that the nested_parse can use
+        new_content = StringList(new_content.split("\n"))
+        self.state.nested_parse(new_content, self.content_offset,
                                 node, match_titles=1)
         return node.children
 

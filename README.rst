@@ -3,7 +3,6 @@ sphinx-jinja
 
 A sphinx extension to include jinja based templates based documentation into a sphinx doc
 
-
 Usage
 =====
 
@@ -20,9 +19,10 @@ In your rst doc, you can use the following snippet to use a jinja template to ge
         {{v}}
         {% endfor %}
 
-In your config file, you can create or load the contexts needed for your jinja templates
+In your sphinx ``conf.py`` file, you can create or load the contexts needed for your jinja templates
 
 ::
+    extensions = ['sphinxcontrib.jinja']
 
     jinja_contexts = {
         'first_ctx': {'topics': {'a': 'b', 'c': 'd'}}
