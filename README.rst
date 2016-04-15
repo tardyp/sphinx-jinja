@@ -31,12 +31,34 @@ In your sphinx ``conf.py`` file, you can create or load the contexts needed for 
         'first_ctx': {'topics': {'a': 'b', 'c': 'd'}}
     }
 
+Available options
+=================
 
-Each element of the `jinja_contexts` dictionary is a context dict for use in your jinja templates
+- ``file``: allow to specify a path to Jinja instead of writing it into the content of the
+  directive. Path is relative to the current directory of sphinx-build tool, typically the directory
+  where the ``conf.py`` file is located.
+- ``header_char``: character to use for the the headers. You can use it in your template to set your
+  own title character::
+
+  For example:
+
+      Title
+      {{ options.header_char * 5 }}
+
+
+  Example of declaration in your RST file:
+
+  .. code:: rst
+
+      .. jinja:: approval_checks_api
+         :file: relative/path/to/template.jinja
+         :header_char: -
+
+Each element of the `jinja_contexts` dictionary is a context dict for use in your jinja templates.
+
 
 Running tests
 =============
 
 * pip install tox
 * tox
-

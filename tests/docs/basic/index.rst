@@ -9,4 +9,11 @@ Welcome to test's documentation!
     ~~~~~
     {{v}}
     {% endfor %}
-after
+
+after first context
+
+.. jinja:: second_ctx
+   :file: tests/docs/basic/jinja_template.jinja
+   :header_char: ~
+
+after second context

@@ -3,5 +3,5 @@ Changelog
 *.egg
 *.egg-info
 *.pyc
-build/
-dist/
+.eggs
+dist
