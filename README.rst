@@ -24,7 +24,8 @@ In your rst doc, you can use the following snippet to use a jinja template to ge
 
 In your sphinx ``conf.py`` file, you can create or load the contexts needed for your jinja templates
 
-::
+.. code:: python
+
     extensions = ['sphinxcontrib.jinja']
 
     jinja_contexts = {
@@ -38,17 +39,18 @@ Available options
   directive. Path is relative to the current directory of sphinx-build tool, typically the directory
   where the ``conf.py`` file is located.
 - ``header_char``: character to use for the the headers. You can use it in your template to set your
-  own title character::
+    own title character:
 
-  For example:
+    For example:
 
-      Title
-      {{ options.header_char * 5 }}
+    .. code:: rst
 
+        Title
+        {{ options.header_char * 5 }}
 
-  Example of declaration in your RST file:
+Example of declaration in your RST file:
 
-  .. code:: rst
+.. code:: rst
 
       .. jinja:: approval_checks_api
          :file: relative/path/to/template.jinja
