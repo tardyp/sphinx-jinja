@@ -30,3 +30,10 @@ In your sphinx ``conf.py`` file, you can create or load the contexts needed for 
 
 
 Each element of the `jinja_contexts` dictionary is a context dict for use in your jinja templates
+
+Running tests
+=============
+
+* pip install tox
+* tox
+
