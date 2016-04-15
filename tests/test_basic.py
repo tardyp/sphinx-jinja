@@ -13,6 +13,7 @@ def test_build_singlehtml(app, status, warning):
     app.builder.build_all()
     html = (app.outdir / 'index.html').read_text()
     assert '<p>b</p>' in html
+    assert '<p>second:a = b</p>' in html
 
 
 @with_app(buildername='latex', srcdir='tests/docs/basic/')

@@ -1,11 +1,8 @@
 CHANGES
 =======
 
+* Allow jinja directive to use an external jinja template
 * fix issue with pip install -e 
-
-0.1.1
------
-
 * Fix issue with overwritting content of rst file
 
 0.1.0
