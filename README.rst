@@ -1,6 +1,8 @@
+.. image:: https://img.shields.io/travis/tardyp/sphinx-jinja.svg?maxAge=2592000
+    :target: https://travis-ci.org/tardyp/sphinx-jinja
+
 sphinx-jinja
 ============
-[![Travis](https://img.shields.io/travis/tardyp/sphinx-jinja.svg)](https://travis-ci.org/tardyp/sphinx-jinja)
 
 A sphinx extension to include jinja based templates based documentation into a sphinx doc
 
