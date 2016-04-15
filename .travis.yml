@@ -1,0 +1,12 @@
+language: python
+sudo: false
+
+install:
+  - pip install tox codecov
+
+script:
+  - tox -c tox.ini 
+
+after_script:
+  - codecov
+
