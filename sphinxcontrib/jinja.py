@@ -6,11 +6,10 @@ from docutils import nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst import directives
 from docutils.statemachine import StringList
-from jinja2 import Template, FileSystemLoader, Environment
+from jinja2 import FileSystemLoader, Environment
 
 
 class JinjaDirective(Directive):
-
     has_content = True
     required_arguments = 1
     option_spec = {
@@ -33,7 +32,6 @@ class JinjaDirective(Directive):
         cxt["options"] = {
             "header_char": self.options.get("header_char")
         }
-
         if template_filename:
             if debug_template is not None:
                 print('')
@@ -58,20 +56,18 @@ class JinjaDirective(Directive):
                 print('********** From {} **********'.format(docname))
                 print('\n'.join(self.content))
                 print('********** End Jinja Debug Output: Template Before Processing **********')
-                print('')                
+                print('')
             tpl = Environment(
                       loader=FileSystemLoader(
                           self.app.config.jinja_base, followlinks=True)
                   ).from_string('\n'.join(self.content))
-
         new_content = tpl.render(**cxt)
         if debug_template is not None:
             print('')
             print('********** Begin Jinja Debug Output: Template After Processing **********')
             print(new_content)
             print('********** End Jinja Debug Output: Template After Processing **********')
-            print('')                
-            
+            print('')
         new_content = StringList(new_content.splitlines())
         self.state.nested_parse(new_content, self.content_offset,
                                 node, match_titles=1)
