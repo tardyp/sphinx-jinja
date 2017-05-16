@@ -1,3 +1,4 @@
+import codecs
 import os
 import sys
 import urllib
@@ -40,7 +41,7 @@ class JinjaDirective(Directive):
                 template_path = urllib.url2pathname(reference_uri)
                 encoded_path = template_path.encode(sys.getfilesystemencoding())
                 imagerealpath = os.path.abspath(encoded_path)
-                with open(imagerealpath) as f:
+                with codecs.open(imagerealpath, encoding='utf-8') as f:
                     print(f.read())
                 print('********** End Jinja Debug Output: Template Before Processing **********')
                 print('')
