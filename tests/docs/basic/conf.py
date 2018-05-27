@@ -260,4 +260,5 @@ texinfo_documents = [
 jinja_contexts = {
     'first_ctx': {'topics': {'a': 'b', 'c': 'd'}},
     'second_ctx': {'topics': {'a': 'b', 'c': 'd'}},
+    'null': {},
 }

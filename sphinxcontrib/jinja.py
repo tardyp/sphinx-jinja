@@ -8,6 +8,7 @@ from docutils.parsers.rst import Directive
 from docutils.parsers.rst import directives
 from docutils.statemachine import StringList
 from jinja2 import FileSystemLoader, Environment
+import sphinx.util
 
 
 class JinjaDirective(Directive):
@@ -68,9 +69,9 @@ class JinjaDirective(Directive):
             print(new_content)
             print('********** End Jinja Debug Output: Template After Processing **********')
             print('')
-        new_content = StringList(new_content.splitlines())
-        self.state.nested_parse(new_content, self.content_offset,
-                                node, match_titles=1)
+        new_content = StringList(new_content.splitlines(), source='')
+        sphinx.util.nested_parse_with_titles(
+            self.state, new_content, node)
         return node.children
 
 
