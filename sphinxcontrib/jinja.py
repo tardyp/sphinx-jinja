@@ -80,3 +80,4 @@ def setup(app):
     app.add_directive('jinja', JinjaDirective)
     app.add_config_value('jinja_contexts', {}, 'env')
     app.add_config_value('jinja_base', os.path.abspath('.'), 'env')
+    return {'parallel_read_safe': True, 'parallel_write_safe': True}
