@@ -1,6 +1,12 @@
 Welcome to test's documentation!
 ================================
 
+.. jinja:: null
+
+   .. include:: ../../../README.rst
+
+after include
+
 .. jinja:: first_ctx
 
     {% for k, v in topics.items() %}

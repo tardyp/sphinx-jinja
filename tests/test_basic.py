@@ -12,6 +12,8 @@ def test_build_html(app, status, warning):
 def test_build_singlehtml(app, status, warning):
     app.builder.build_all()
     html = (app.outdir / 'index.html').read_text()
+    assert ('<p>A sphinx extension to include jinja based templates based '
+            'documentation into a sphinx doc</p>') in html
     assert '<p>b</p>' in html
     assert '<p>second:a = b</p>' in html
 
