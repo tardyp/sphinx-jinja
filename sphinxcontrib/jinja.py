@@ -13,7 +13,7 @@ import sphinx.util
 
 class JinjaDirective(Directive):
     has_content = True
-    required_arguments = 1
+    optional_arguments = 1
     option_spec = {
         "file": directives.path,
         "header_char": directives.unchanged,
@@ -24,12 +24,12 @@ class JinjaDirective(Directive):
     def run(self):
         node = nodes.Element()
         node.document = self.state.document
-        jinja_context_name = self.arguments[0]
         env = self.state.document.settings.env
         docname = env.docname
         template_filename = self.options.get("file")
         debug_template = self.options.get("debug")
-        cxt = self.app.config.jinja_contexts[jinja_context_name]
+        cxt = (self.app.config.jinja_contexts[self.arguments[0]]
+               if self.arguments else {})
         cxt["options"] = {
             "header_char": self.options.get("header_char")
         }

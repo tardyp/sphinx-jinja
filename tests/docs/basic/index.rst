@@ -1,7 +1,7 @@
 Welcome to test's documentation!
 ================================
 
-.. jinja:: null
+.. jinja::
 
    .. include:: ../../../README.rst
 
