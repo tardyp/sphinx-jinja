@@ -28,7 +28,7 @@ class JinjaDirective(Directive):
         docname = env.docname
         template_filename = self.options.get("file")
         debug_template = self.options.get("debug")
-        cxt = (self.app.config.jinja_contexts[self.arguments[0]]
+        cxt = (self.app.config.jinja_contexts[self.arguments[0]].copy()
                if self.arguments else {})
         cxt["options"] = {
             "header_char": self.options.get("header_char")
