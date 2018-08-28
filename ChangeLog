@@ -1,9 +1,17 @@
 CHANGES
 =======
 
+1.1.0
+-----
+
+* update changelog
+* Don't let header\_char modify the default config in-place
+* Allow parallel builds
+
 1.0.0
 -----
 
+* update changelog
 * add github url in home page
 * Allow not passing a context (i.e., empty dict)
 * Support \`.. include::\` in template
