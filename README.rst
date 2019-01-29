@@ -49,6 +49,9 @@ Available options
       Title
       {{ options.header_char * 5 }}
 
+- ``debug``: print debugging information during sphinx-build. This allows you to see the generated
+  rst before sphinx builds it into another format.
+
 Example of declaration in your RST file:
 
 .. code:: rst
