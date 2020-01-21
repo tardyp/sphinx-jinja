@@ -38,15 +38,19 @@ Available options
 - ``file``: allow to specify a path to Jinja instead of writing it into the content of the
   directive. Path is relative to the current directory of sphinx-build tool, typically the directory
   where the ``conf.py`` file is located.
+
 - ``header_char``: character to use for the the headers. You can use it in your template to set your
-    own title character:
+  own title character:
 
-    For example:
+  For example:
 
-    .. code:: rst
+  .. code:: rst
 
-        Title
-        {{ options.header_char * 5 }}
+      Title
+      {{ options.header_char * 5 }}
+
+- ``debug``: print debugging information during sphinx-build. This allows you to see the generated
+  rst before sphinx builds it into another format.
 
 Example of declaration in your RST file:
 
@@ -56,7 +60,7 @@ Example of declaration in your RST file:
          :file: relative/path/to/template.jinja
          :header_char: -
 
-Each element of the `jinja_contexts` dictionary is a context dict for use in your jinja templates.
+Each element of the ``jinja_contexts`` dictionary is a context dict for use in your jinja templates.
 
 
 Running tests
