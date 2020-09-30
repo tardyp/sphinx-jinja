@@ -27,7 +27,7 @@ class JinjaDirective(Directive):
         env = self.state.document.settings.env
         docname = env.docname
         template_filename = self.options.get("file")
-        debug_template = self.options.get("debug")
+        debug_template = self.options.get("debug")       
         cxt = (self.app.config.jinja_contexts[self.arguments[0]].copy()
                if self.arguments else {})
         cxt["options"] = {
@@ -46,10 +46,17 @@ class JinjaDirective(Directive):
                     print(f.read())
                 print('********** End Jinja Debug Output: Template Before Processing **********')
                 print('')
-            tpl = Environment(
+            # tpl = Environment(
+            #               loader=FileSystemLoader(
+            #                   self.app.config.jinja_base, followlinks=True)
+            #           ).get_template(template_filename)
+            env = Environment(
                           loader=FileSystemLoader(
                               self.app.config.jinja_base, followlinks=True)
-                      ).get_template(template_filename)
+                      )
+            env.filters.update(self.app.config.jinja_custom_filters)
+            tpl = env.get_template(template_filename)
+            
         else:
             if debug_template is not None:
                 print('')
@@ -58,10 +65,14 @@ class JinjaDirective(Directive):
                 print('\n'.join(self.content))
                 print('********** End Jinja Debug Output: Template Before Processing **********')
                 print('')
-            tpl = Environment(
+            env = Environment(
                       loader=FileSystemLoader(
                           self.app.config.jinja_base, followlinks=True)
-                  ).from_string('\n'.join(self.content))
+                  )
+            env.filters.update(self.app.config.jinja_custom_filters)
+            tpl = env.from_string('\n'.join(self.content))
+                  
+
         new_content = tpl.render(**cxt)
         if debug_template is not None:
             print('')
@@ -79,5 +90,7 @@ def setup(app):
     JinjaDirective.app = app
     app.add_directive('jinja', JinjaDirective)
     app.add_config_value('jinja_contexts', {}, 'env')
+#custom jinja filters
+    app.add_config_value('jinja_custom_filters', {}, 'env')
     app.add_config_value('jinja_base', os.path.abspath('.'), 'env')
     return {'parallel_read_safe': True, 'parallel_write_safe': True}
