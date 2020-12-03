@@ -47,3 +47,17 @@ def test_build_epub(app, status, warning):
 @with_app(buildername='json', srcdir='tests/docs/basic/')
 def test_build_json(app, status, warning):
     app.builder.build_all()
+
+
+@with_app(buildername='singlehtml', srcdir='tests/docs/basic/')
+def test_customize_env(app, status, warning):
+    app.builder.build_all()
+    html = (app.outdir / 'index.html').read_text()
+    assert '<h2>Lists' in html
+    assert 'skipped_string' not in html
+    for x in [1, 2, 3, 'a', 'b']:
+        # I have no idea why the <p> tags are missing on 2.7...
+        if sys.version_info[:2] < (3, 0):
+            assert '<li><strong>{}</strong></li>'.format(x) in html
+        else:
+            assert '<li><p><strong>{}</strong></p></li>'.format(x) in html

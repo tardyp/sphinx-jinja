@@ -24,6 +24,22 @@ after first context
 
 after second context
 
+.. jinja:: third_ctx
+    :debug:
+
+    Lists
+    -----
+
+    {% for o in objects -%}
+        {%- if o is instanceof list -%}
+            {%- for x in o -%}
+                - {{ x|bold }}
+            {% endfor -%}
+        {%- endif -%}
+    {%- endfor %}
+
+after third context
+
 first context with debug on
 
 .. jinja:: first_ctx

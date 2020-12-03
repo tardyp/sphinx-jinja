@@ -260,4 +260,29 @@ texinfo_documents = [
 jinja_contexts = {
     'first_ctx': {'topics': {'a': 'b', 'c': 'd'}},
     'second_ctx': {'topics': {'a': 'b', 'c': 'd'}},
+    'third_ctx': {'objects': [
+        [1, 2, 3, 4],
+        'skipped_string',
+        ['a', 'b'],
+    ]},
+}
+
+jinja_env_kwargs = {
+    'lstrip_blocks': True,
+}
+
+jinja_filters = {
+    'bold': lambda value: '**{}**'.format(value),
+}
+
+jinja_tests = {
+    'instanceof': lambda value, type: isinstance(value, type),
+}
+
+jinja_globals = {
+    'list': list,
+}
+
+jinja_policies = {
+    'compiler.ascii_str': False,
 }

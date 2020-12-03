@@ -32,6 +32,46 @@ In your sphinx ``conf.py`` file, you can create or load the contexts needed for 
         'first_ctx': {'topics': {'a': 'b', 'c': 'd'}}
     }
 
+You can also customize the jinja ``Environment`` by passing custom kwargs, adding filters, tests, and globals, and setting policies:
+
+.. code:: python
+
+    jinja_env_kwargs = {
+        'lstrip_blocks': True,
+    }
+
+    jinja_filters = {
+        'bold': lambda value: f'**{value}**',
+    }
+
+    jinja_tests = {
+        'instanceof': lambda value, type: isinstance(value, type),
+    }
+
+    jinja_globals = {
+        'list': list,
+    }
+
+    jinja_policies = {
+        'compiler.ascii_str': False,
+    }
+
+Which can then be used in the templates:
+
+.. code:: rst
+
+    Lists
+    -----
+
+    {% for o in objects -%}
+        {%- if o is instanceof list -%}
+            {%- for x in o -%}
+                - {{ x|bold }}
+            {% endfor -%}
+        {%- endif -%}
+    {%- endfor %}
+
+
 Available options
 =================
 

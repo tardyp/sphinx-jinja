@@ -28,15 +28,23 @@ class JinjaDirective(Directive):
     def run(self):
         node = nodes.Element()
         node.document = self.state.document
-        env = self.state.document.settings.env
-        docname = env.docname
+        docname = self.state.document.settings.env.docname
+        conf = self.app.config
         template_filename = self.options.get("file")
         debug_template = self.options.get("debug")
-        cxt = (self.app.config.jinja_contexts[self.arguments[0]].copy()
+        cxt = (conf.jinja_contexts[self.arguments[0]].copy()
                if self.arguments else {})
         cxt["options"] = {
-            "header_char": self.options.get("header_char")
+            "header_char": self.options.get("header_char"),
         }
+        env = Environment(
+            loader=FileSystemLoader(conf.jinja_base, followlinks=True),
+            **conf.jinja_env_kwargs
+        )
+        env.filters.update(conf.jinja_filters)
+        env.tests.update(conf.jinja_tests)
+        env.globals.update(conf.jinja_globals)
+        env.policies.update(conf.jinja_policies)
         if template_filename:
             if debug_template is not None:
                 reference_uri = directives.uri(template_filename)
@@ -48,24 +56,17 @@ class JinjaDirective(Directive):
                         'Template Before Processing',
                         '******* From {} *******\n{}'.format(docname, f.read()),
                     )
-
-            tpl = Environment(
-                          loader=FileSystemLoader(
-                              self.app.config.jinja_base, followlinks=True)
-                      ).get_template(template_filename)
+            tpl = env.get_template(template_filename)
         else:
+            content = '\n'.join(self.content)
             if debug_template is not None:
-                debug_print('Template Before Processing', '\n'.join(self.content))
-            tpl = Environment(
-                      loader=FileSystemLoader(
-                          self.app.config.jinja_base, followlinks=True)
-                  ).from_string('\n'.join(self.content))
+                debug_print('Template Before Processing', content)
+            tpl = env.from_string(content)
         new_content = tpl.render(**cxt)
         if debug_template is not None:
             debug_print('Template After Processing', new_content)
         new_content = StringList(new_content.splitlines(), source='')
-        sphinx.util.nested_parse_with_titles(
-            self.state, new_content, node)
+        sphinx.util.nested_parse_with_titles(self.state, new_content, node)
         return node.children
 
 
@@ -81,4 +82,9 @@ def setup(app):
     app.add_directive('jinja', JinjaDirective)
     app.add_config_value('jinja_contexts', {}, 'env')
     app.add_config_value('jinja_base', os.path.abspath('.'), 'env')
+    app.add_config_value('jinja_env_kwargs', {}, 'env')
+    app.add_config_value('jinja_filters', {}, 'env')
+    app.add_config_value('jinja_tests', {}, 'env')
+    app.add_config_value('jinja_globals', {}, 'env')
+    app.add_config_value('jinja_policies', {}, 'env')
     return {'parallel_read_safe': True, 'parallel_write_safe': True}
