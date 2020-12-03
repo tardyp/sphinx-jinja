@@ -4,5 +4,6 @@ from setuptools import setup
 
 setup(
     setup_requires=['pbr'],
-    pbr=True
+    pbr=True,
+    install_requires=['sphinx', 'docutils', 'jinja2'],
 )
