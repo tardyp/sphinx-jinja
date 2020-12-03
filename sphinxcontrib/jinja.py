@@ -1,7 +1,6 @@
 import codecs
 import os
 import sys
-import urllib
 
 from docutils import nodes
 from docutils.parsers.rst import Directive
@@ -9,6 +8,11 @@ from docutils.parsers.rst import directives
 from docutils.statemachine import StringList
 from jinja2 import FileSystemLoader, Environment
 import sphinx.util
+
+try:
+    from urllib.request import url2pathname
+except ImportError:
+    from urllib import url2pathname
 
 
 class JinjaDirective(Directive):
@@ -35,44 +39,41 @@ class JinjaDirective(Directive):
         }
         if template_filename:
             if debug_template is not None:
-                print('')
-                print('********** Begin Jinja Debug Output: Template Before Processing **********')
-                print('********** From {} **********'.format(docname))
-                reference_uri = directives.uri(os.path.join('source', template_filename))
-                template_path = urllib.url2pathname(reference_uri)
+                reference_uri = directives.uri(template_filename)
+                template_path = url2pathname(reference_uri)
                 encoded_path = template_path.encode(sys.getfilesystemencoding())
                 imagerealpath = os.path.abspath(encoded_path)
                 with codecs.open(imagerealpath, encoding='utf-8') as f:
-                    print(f.read())
-                print('********** End Jinja Debug Output: Template Before Processing **********')
-                print('')
+                    debug_print(
+                        'Template Before Processing',
+                        '******* From {} *******\n{}'.format(docname, f.read()),
+                    )
+
             tpl = Environment(
                           loader=FileSystemLoader(
                               self.app.config.jinja_base, followlinks=True)
                       ).get_template(template_filename)
         else:
             if debug_template is not None:
-                print('')
-                print('********** Begin Jinja Debug Output: Template Before Processing **********')
-                print('********** From {} **********'.format(docname))
-                print('\n'.join(self.content))
-                print('********** End Jinja Debug Output: Template Before Processing **********')
-                print('')
+                debug_print('Template Before Processing', '\n'.join(self.content))
             tpl = Environment(
                       loader=FileSystemLoader(
                           self.app.config.jinja_base, followlinks=True)
                   ).from_string('\n'.join(self.content))
         new_content = tpl.render(**cxt)
         if debug_template is not None:
-            print('')
-            print('********** Begin Jinja Debug Output: Template After Processing **********')
-            print(new_content)
-            print('********** End Jinja Debug Output: Template After Processing **********')
-            print('')
+            debug_print('Template After Processing', new_content)
         new_content = StringList(new_content.splitlines(), source='')
         sphinx.util.nested_parse_with_titles(
             self.state, new_content, node)
         return node.children
+
+
+def debug_print(title, content):
+    stars = '*' * 10
+    print('\n{1} Begin Debug Output: {0} {1}'.format(title, stars))
+    print(content)
+    print('\n{1} End Debug Output: {0} {1}'.format(title, stars))
 
 
 def setup(app):
