@@ -1,6 +1,22 @@
 # -*- coding: utf-8 -*-
 
+import os
+import sys
+from pkgutil import walk_packages
+
 from sphinx_testing import with_app
+
+if sys.version_info[:2] > (3, 0):
+    # Make sure that the other sphinxcontrib packages can be loaded
+    import sphinxcontrib.jinja
+    if 'site-packages' not in sphinxcontrib.__path__:
+        sys.path.remove(os.path.dirname(sphinxcontrib.__path__[0]))
+        del sys.modules['sphinxcontrib']
+        for path in filter(lambda p: 'site-packages' in p, sys.path):
+            contrib = os.path.join(path, 'sphinxcontrib')
+            for minfo in walk_packages([contrib], prefix='sphinxcontrib.'):
+                spec = minfo.module_finder.find_spec(minfo.name)
+                spec.loader.load_module(minfo.name)
 
 
 @with_app(buildername='html', srcdir='tests/docs/basic/')
