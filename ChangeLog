@@ -1,7 +1,14 @@
 CHANGES
 =======
 
+* Add Environment customization for kwargs, filters, tests, globals, and policies
+* Refactor debug printing and fix urllib import
+* Use debug in tests - currently breaks on 3.7+
+* Add tox environments for 3.6, 3.7, 3.8, and 3.9
+* Add requirements to requirements.txt and setup.py
 * Add MIT license file
+* README.rst: add debug option
+* README.rst: fix formatting
 
 1.1.0
 -----
