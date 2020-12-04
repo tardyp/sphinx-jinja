@@ -48,10 +48,12 @@ class JinjaDirective(Directive):
         if template_filename:
             if debug_template is not None:
                 reference_uri = directives.uri(template_filename)
-                template_path = url2pathname(reference_uri)
+                template_path = os.path.join(
+                    os.path.abspath(conf.jinja_base),
+                    url2pathname(reference_uri),
+                )
                 encoded_path = template_path.encode(sys.getfilesystemencoding())
-                imagerealpath = os.path.abspath(encoded_path)
-                with codecs.open(imagerealpath, encoding='utf-8') as f:
+                with codecs.open(encoded_path, encoding='utf-8') as f:
                     debug_print(
                         'Template Before Processing',
                         '******* From {} *******\n{}'.format(docname, f.read()),
