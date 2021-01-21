@@ -4,3 +4,5 @@
 *.pyc
 .eggs
 dist
+venv
+.idea
