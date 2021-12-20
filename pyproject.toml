@@ -14,7 +14,7 @@ packages = [
   { include = "sphinxcontrib" }
 ]
 [tool.poetry.dependencies]
-python = ">=3.6"
+python = ">=3.6,<4"
 sphinx = "^4.2.0"
 docutils = "^0.16"
 Jinja2 = ">=2.11"
