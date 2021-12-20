@@ -26,4 +26,4 @@ jobs:
         poetry run flake8 sphinxcontrib
     - name: Test with pytest
       run: |
-        poetry run nosetests
+        poetry run pytest
