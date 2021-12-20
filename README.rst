@@ -1,5 +1,5 @@
-.. image:: https://img.shields.io/travis/tardyp/sphinx-jinja.svg?maxAge=2592000
-    :target: https://travis-ci.org/tardyp/sphinx-jinja
+
+.. image:: https://github.com/tardyp/sphinx-jinja/actions/workflows/ci.yml/badge.svg
 
 sphinx-jinja
 ============
