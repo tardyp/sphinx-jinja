@@ -1,5 +1,8 @@
 CHANGES
 =======
+1.2.1
+-----
+untight the dependency on jinja2 from ^2.11 to >=2.11
 
 1.2.0
 -----

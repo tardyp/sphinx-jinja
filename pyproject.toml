@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinx-jinja"
-version = "1.2.0"
+version = "1.2.1"
 description = "includes jinja templates in a documentation"
 authors = ["Pierre Tardy <tardyp@gmail.com>"]
 license = "MIT"
@@ -17,7 +17,7 @@ packages = [
 python = ">=3.6"
 sphinx = "^4.2.0"
 docutils = "^0.16"
-Jinja2 = "^2.11.2"
+Jinja2 = ">=2.11"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
