@@ -56,3 +56,16 @@ def test_customize_env(make_app):
             assert '<li><strong>{}</strong></li>'.format(x) in html
         else:
             assert '<li><p><strong>{}</strong></p></li>'.format(x) in html
+
+
+def test_header_levels(make_app):
+    app = make_app(buildername='html', srcdir=SRCDIR)
+    app.builder.build_all()
+    html = (app.outdir / 'header_levels.html').read_text()
+    print(html)
+
+    assert '<h1>Header level tests' in html
+    assert '<h2>same style, but second level' in html
+    assert '<h3>New style is third level' in html
+    assert '<h1>same style, same level' in html
+    assert '<h2>Second level' in html

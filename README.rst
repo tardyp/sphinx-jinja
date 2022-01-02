@@ -89,6 +89,11 @@ Available options
       Title
       {{ options.header_char * 5 }}
 
+- ``header_update_levels``: If set, a header in the template will appear as the same level as a
+  header of the same style in the source document, equivalent to when you use the ``include``
+  directive. If not set, headers from the template will be in levels below whatever level is active
+  in the source document.
+
 - ``debug``: print debugging information during sphinx-build. This allows you to see the generated
   rst before sphinx builds it into another format.
 

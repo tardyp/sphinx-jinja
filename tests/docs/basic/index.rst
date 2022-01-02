@@ -58,3 +58,7 @@ second context with debug on
    :file: jinja_template.jinja
    :header_char: ~
    :debug:
+
+.. toctree::
+
+   header_levels.html
