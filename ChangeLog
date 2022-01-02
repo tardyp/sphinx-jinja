@@ -20,6 +20,9 @@ to
    :file: test.rst
 ```
 
+* Add `header_update_levels` option to let headers behave in the same way as
+  if include via the `include` directive.
+
 
 1.2.1
 -----

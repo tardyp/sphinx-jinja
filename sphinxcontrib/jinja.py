@@ -21,6 +21,7 @@ class JinjaDirective(Directive):
     option_spec = {
         "file": directives.path,
         "header_char": directives.unchanged,
+        "header_update_levels": directives.flag,
         "debug": directives.unchanged,
     }
     app = None
@@ -67,9 +68,14 @@ class JinjaDirective(Directive):
         new_content = tpl.render(**cxt)
         if debug_template is not None:
             debug_print('Template After Processing', new_content)
-        new_content = StringList(new_content.splitlines(), source='')
-        sphinx.util.nested_parse_with_titles(self.state, new_content, node)
-        return node.children
+
+        if "header_update_levels" in self.options:
+            self.state_machine.insert_input(new_content.splitlines(), source='')
+            return []
+        else:
+            new_content = StringList(new_content.splitlines(), source='')
+            sphinx.util.nested_parse_with_titles(self.state, new_content, node)
+            return node.children
 
 
 def debug_print(title, content):
