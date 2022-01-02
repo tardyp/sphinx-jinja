@@ -83,7 +83,7 @@ def setup(app):
     JinjaDirective.app = app
     app.add_directive('jinja', JinjaDirective)
     app.add_config_value('jinja_contexts', {}, 'env')
-    app.add_config_value('jinja_base', os.path.abspath('.'), 'env')
+    app.add_config_value('jinja_base', app.srcdir, 'env')
     app.add_config_value('jinja_env_kwargs', {}, 'env')
     app.add_config_value('jinja_filters', {}, 'env')
     app.add_config_value('jinja_tests', {}, 'env')
