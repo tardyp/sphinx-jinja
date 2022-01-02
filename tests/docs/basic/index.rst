@@ -19,7 +19,7 @@ after include
 after first context
 
 .. jinja:: second_ctx
-   :file: tests/docs/basic/jinja_template.jinja
+   :file: jinja_template.jinja
    :header_char: ~
 
 after second context
@@ -55,6 +55,6 @@ first context with debug on
 second context with debug on
 
 .. jinja:: second_ctx
-   :file: tests/docs/basic/jinja_template.jinja
+   :file: jinja_template.jinja
    :header_char: ~
    :debug:
