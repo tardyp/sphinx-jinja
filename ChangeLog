@@ -5,7 +5,8 @@ CHANGES
 
 Use app.srcdir as jinja_base. 
 
-This may affect people that include files from jinja context. They should change:
+This affects people that include files from jinja context and use separate
+source and build directories. They should change:
 
 ```
 .. jinja:: 
