@@ -1,5 +1,10 @@
 CHANGES
 =======
+1.4.1
+-----
+
+release the docutil dependency constraint to allow more recent version
+
 1.4.0
 -----
 
