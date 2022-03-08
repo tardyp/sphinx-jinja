@@ -23,7 +23,13 @@ jobs:
 
     - name: Lint with flake8
       run: |
-        poetry run flake8 sphinxcontrib
+        poetry run flake8 sphinx_jinja
+
     - name: Test with pytest
       run: |
+        poetry run pytest
+
+    - name: Test with docutils 0.16
+      run: |
+        poetry run pip install 'docutils==0.16'
         poetry run pytest
