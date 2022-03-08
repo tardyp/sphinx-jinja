@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinx-jinja"
-version = "1.4.0"
+version = "1.4.1"
 description = "includes jinja templates in a documentation"
 authors = ["Pierre Tardy <tardyp@gmail.com>"]
 license = "MIT"
