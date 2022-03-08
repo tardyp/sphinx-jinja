@@ -26,7 +26,7 @@ In your sphinx ``conf.py`` file, you can create or load the contexts needed for 
 
 .. code:: python
 
-    extensions = ['sphinxcontrib.jinja']
+    extensions = ['sphinx_jinja']
 
     jinja_contexts = {
         'first_ctx': {'topics': {'a': 'b', 'c': 'd'}}
