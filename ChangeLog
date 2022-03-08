@@ -1,9 +1,19 @@
 CHANGES
 =======
-1.4.1
+2.0.0
 -----
 
-release the docutil dependency constraint to allow more recent version
+Release the docutil dependency constraint to allow more recent version.
+
+**Breaking change**: In order to be compatible with modern sphinx, the plugin is now in its own
+module, and not anymore in the "sphinxcontrib" namespace.
+
+You will need to change you conf.py with the following pseudo patch:
+
+```
+- extensions = ['sphinxcontrib.jinja']
++ extensions = ['sphinx_jinja']
+```
 
 1.4.0
 -----
