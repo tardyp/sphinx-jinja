@@ -1,5 +1,10 @@
 CHANGES
 =======
+2.0.2
+-----
+
+Release the dependency to >4.2 to be more compatible as a deep dependency
+
 2.0.1
 -----
 
