@@ -1,4 +1,3 @@
-
 .. image:: https://github.com/tardyp/sphinx-jinja/actions/workflows/ci.yml/badge.svg
 
 sphinx-jinja
@@ -14,6 +13,20 @@ In your rst doc, you can use the following snippet to use a jinja template to ge
 .. code:: rst
 
     .. jinja:: first_ctx
+
+        {% for k, v in topics.items() %}
+
+        {{k}}
+        ~~~~~
+        {{v}}
+        {% endfor %}
+
+Alternatively, you can use the `inline-ctx` option to define the context directly within the RST file:
+
+.. code:: rst
+
+    .. jinja::
+       :inline-ctx: { "topics": { "foo": "bar", "baz": "qux" } }
 
         {% for k, v in topics.items() %}
 
@@ -79,7 +92,7 @@ Available options
   directive. Path is relative to the current directory of sphinx-build tool, typically the directory
   where the ``conf.py`` file is located.
 
-- ``header_char``: character to use for the the headers. You can use it in your template to set your
+- ``header_char``: character to use for the headers. You can use it in your template to set your
   own title character:
 
   For example:
@@ -97,16 +110,19 @@ Available options
 - ``debug``: print debugging information during sphinx-build. This allows you to see the generated
   rst before sphinx builds it into another format.
 
+- ``inline-ctx``: define the context directly within the RST file as a JSON-formatted string. This
+  context will be merged with any existing context from the ``jinja_contexts`` dictionary.
+
 Example of declaration in your RST file:
 
 .. code:: rst
-
+    
       .. jinja:: approval_checks_api
          :file: relative/path/to/template.jinja
          :header_char: -
+         :inline-ctx: { "additional_key": "additional_value" }
 
 Each element of the ``jinja_contexts`` dictionary is a context dict for use in your jinja templates.
-
 
 Running tests
 =============
