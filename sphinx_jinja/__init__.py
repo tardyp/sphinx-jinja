@@ -23,6 +23,7 @@ class JinjaDirective(Directive):
         "header_char": directives.unchanged,
         "header_update_levels": directives.flag,
         "debug": directives.unchanged,
+        "inline-ctx": directives.unchanged,
     }
     app = None
 
@@ -38,6 +39,11 @@ class JinjaDirective(Directive):
         cxt["options"] = {
             "header_char": self.options.get("header_char"),
         }
+        # Add support for inline-ctx
+        inline_ctx = self.options.get("inline-ctx")
+        if inline_ctx:
+            inline_ctx = json.loads(inline_ctx)
+            cxt.update(inline_ctx)
         env = Environment(
             loader=FileSystemLoader(conf.jinja_base, followlinks=True),
             **conf.jinja_env_kwargs
