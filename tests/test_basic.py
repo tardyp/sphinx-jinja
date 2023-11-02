@@ -3,8 +3,13 @@
 import os
 import sys
 from pkgutil import walk_packages
+
+import sphinx
 from sphinx.testing.fixtures import make_app, test_params
-from sphinx.testing.util import path as Path
+if sphinx.version_info >= (7, 2):
+    from pathlib import Path
+else:
+    from sphinx.testing.util import path as Path
 
 if sys.version_info[:2] > (3, 8):
     import collections
